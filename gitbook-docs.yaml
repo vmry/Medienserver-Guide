@@ -1,0 +1,13 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+
+site:
+  title: Medienserver-Guide
+  structure:
+    - type: space
+      key: medienserver-guide
+      title: Medienserver-Guide
+      path: guide
+      default: true
+      content:
+        directory: ./
+        language: de
