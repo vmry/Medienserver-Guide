@@ -1,0 +1,91 @@
+site_name: Medienserver-Guide
+site_description: Deutschsprachiger Guide zu Plex, Jellyfin, Homeservern, NAS und Dedicated Servern.
+site_url: https://vmry.github.io/Medienserver-Guide/
+
+repo_name: vmry/Medienserver-Guide
+repo_url: https://github.com/vmry/Medienserver-Guide
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+
+theme:
+  name: material
+  language: de
+  font: false
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Zum dunklen Modus wechseln
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Zum hellen Modus wechseln
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search:
+      lang: de
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+      permalink_title: Link zu diesem Abschnitt
+
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn
+
+nav:
+  - Einführung: README.md
+  - Erste Schritte:
+      - Übersicht: erste-schritte/README.md
+      - Wie funktioniert ein Medienserver?: erste-schritte/wie-funktioniert-ein-medienserver.md
+      - Plex oder Jellyfin?: erste-schritte/plex-oder-jellyfin.md
+  - Server:
+      - Übersicht: server/README.md
+      - Homeserver und NAS: server/homeserver-nas.md
+      - Dedicated Server: server/dedicated-server.md
+      - Vergleich: server/vergleich.md
+  - Grundlagen:
+      - Übersicht: grundlagen/README.md
+      - Speicherbedarf: grundlagen/speicherbedarf.md
+      - Ordnerstruktur: grundlagen/ordnerstruktur.md
+      - Direct Play: grundlagen/direct-play.md
+      - Transcoding: grundlagen/transcoding.md
+      - Hardware-Transcoding: grundlagen/hardware-transcoding.md
+  - Plex:
+      - Übersicht: plex/README.md
+      - Plex einrichten: plex/einrichtung.md
+  - Jellyfin:
+      - Übersicht: jellyfin/README.md
+      - Jellyfin einrichten: jellyfin/einrichtung.md

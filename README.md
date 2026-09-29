@@ -2,19 +2,31 @@
 
 Ein deutschsprachiger Einstieg in den eigenen Medienserver für die Self-Hosting-Community. Der Guide erklärt Plex und Jellyfin, Homeserver und NAS, Dedicated Server sowie Speicherplanung, Ordnerstruktur und Videowiedergabe.
 
-**[Zum Guide](docs/README.md)** · [Inhaltsverzeichnis](SUMMARY.md)
+**[Website](https://vmry.github.io/Medienserver-Guide/)** · [Guide auf GitHub lesen](docs/README.md)
 
-Die Dokumentation liegt unter `docs/`. Der ursprüngliche [Entwurf der Version 1.0](draft/Guide-v1.0.md) bleibt als Archiv erhalten.
+Die Website wird mit [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) erstellt. Die Markdown-Quellen liegen unter `docs/`, die Navigation und Website-Einstellungen in `mkdocs.yml`. Der ursprüngliche [Entwurf der Version 1.0](draft/Guide-v1.0.md) bleibt als Archiv erhalten.
 
-Das Repository ist für **GitBook Git Sync** vorbereitet. `gitbook-docs.yaml` beschreibt die Site mit einem deutschsprachigen Standard-Space. Die weiterhin benötigte `.gitbook.yaml` legt `docs/README.md` als Startseite und `SUMMARY.md` als Navigation fest. Beide Konfigurationsdateien liegen im Repository-Hauptverzeichnis; siehe die [GitBook-Konfigurationsreferenz](https://gitbook.com/docs/docs-as-code/git-sync/content-configuration).
+## Lokal entwickeln
 
-Beim [Verbinden mit GitHub](https://gitbook.com/docs/docs-as-code/git-sync/enabling-github-sync) diese Einstellungen verwenden:
+Voraussetzung: Python 3.13 mit pip. Im Repository-Hauptverzeichnis ausführen, vorzugsweise in einer virtuellen Python-Umgebung:
 
-- **Source repository:** `vmry/Medienserver-Guide`, **Branch:** `main`.
-- **Project directory:** leer lassen (Repository-Hauptverzeichnis).
-- **Initial sync direction:** GitHub → GitBook; gegebenenfalls **Swap direction** wählen.
-- **Content mapping:** den Guide-Space auf `./` abbilden. So bleiben `.gitbook.yaml` und die Navigation im Hauptverzeichnis erreichbar, während die Guide-Seiten unter `docs/` liegen.
+```powershell
+python -m pip install -r requirements.txt
+python -m mkdocs serve
+```
 
-Die Konfiguration muss vor dem Verbinden auf dem ausgewählten GitHub-Branch vorhanden sein; lokale Änderungen werden nicht synchronisiert. Den Space-Schlüssel `medienserver-guide` nach der ersten Verbindung beibehalten, damit GitBook den Space bei späteren Änderungen wiedererkennt.
+Die Vorschau ist unter `http://127.0.0.1:8000/Medienserver-Guide/` erreichbar und aktualisiert sich bei Änderungen. Ein Produktions-Build prüft auch Navigation und interne Dokumentationslinks:
 
-Neue Kapitel unter `docs/` ergänzen und in `SUMMARY.md` verlinken. Inhaltsdateien verwenden Kleinbuchstaben und Bindestriche; `README.md` und `SUMMARY.md` bleiben die konventionellen Ausnahmen.
+```powershell
+python -m mkdocs build --strict
+```
+
+Die fertige Website liegt anschließend unter `site/`. Dieser Build-Ordner wird nicht versioniert. Neue Seiten unter `docs/` ergänzen und in `mkdocs.yml` unter `nav` eintragen.
+
+## Veröffentlichung
+
+Einmalig im GitHub-Repository unter **Settings → Pages → Build and deployment → Source** die Option **GitHub Actions** wählen. Falls für die Umgebung `github-pages` Branch-Regeln gesetzt sind, muss `main` zugelassen sein.
+
+Bei jedem Push auf `main` installiert `.github/workflows/deploy.yml` die Dependencies, führt den strikten Build aus und veröffentlicht das Ergebnis über die offiziellen GitHub-Pages-Actions. Der Workflow lässt sich auch manuell für `main` starten. Ein zusätzlicher Veröffentlichungsbranch ist nicht nötig. Details zum Verfahren stehen in der [GitHub-Pages-Dokumentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+Die Website-Adresse funktioniert nach dem ersten erfolgreichen Deployment. `site_url` berücksichtigt den Project-Page-Pfad `/Medienserver-Guide/`.
